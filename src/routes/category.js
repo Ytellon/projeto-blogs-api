@@ -8,4 +8,6 @@ const validateNameCategory = require('../database/middlewares/ValidateNameCatego
 
 router.post('/', validateToken.validate, validateNameCategory, categorie.create);
 
+router.get('/', validateToken.validate, categorie.getCategory);
+
 module.exports = router;

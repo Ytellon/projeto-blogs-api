@@ -13,6 +13,14 @@ const categoryController = {
             return res.status(500).json({ message: error.message });
         }
     },
+    getCategory: async (req, res) => {
+        try {
+            const categories = await categorieService.getCategory();
+            res.status(200).json(categories);
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    },
 };
 
 module.exports = categoryController;
