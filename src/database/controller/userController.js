@@ -1,0 +1,23 @@
+const tokenFBI = require('../utils/tokenFBI');
+const userService = require('../services/userService');
+
+const userController = {
+    userCreate: async (req, res) => {
+        try {
+            const { displayName, email, password, image } = req.body;
+            const user = await userService.userCreate({ displayName, email, password, image });
+            if (user.message) {
+                return res.status(409).json({ message: user.message });
+            }
+            const payload = { displayName, email, image };
+
+            const token = tokenFBI(payload);
+
+            res.status(201).json({ token });
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    },
+};
+
+module.exports = userController;

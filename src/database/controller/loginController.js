@@ -1,10 +1,5 @@
-const jwt = require('jsonwebtoken');
-
-require('dotenv').config();
-
-const wordSecretJwt = process.env.JWT_SECRET;
-
 const loginService = require('../services/loginService');
+const tokenFBI = require('../utils/tokenFBI');
 
 const loginController = {
   login: async (req, res) => {
@@ -17,11 +12,8 @@ const loginController = {
           .status(400)
           .json({ message: 'Invalid fields' });
     }
-      const jwtConfig = {
-        expiresIn: '7d',
-        algorithm: 'HS256',
-      };
-      const token = jwt.sign({ data: user }, wordSecretJwt, jwtConfig);
+    const token = tokenFBI(user);
+
       res.status(200).json({ token });
     } catch (error) {
       return res.status(500).json({ message: error.message });
