@@ -8,4 +8,6 @@ const router = Router();
 
 router.post('/', validateToken.validate, validatePost, postController.create);
 
+router.get('/', validateToken.validate, postController.getAllPosts);
+
 module.exports = router;
